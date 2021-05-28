@@ -1,0 +1,16 @@
+{
+  "recovery_url": "https://github.com/PitchBlackRecoveryProject/manifest_pb",
+  "recovery_branch": "android-10.0",
+  "git_username": "boedhack99",
+  "git_email": "boedhack@gmail.com",
+  "use_own_dt": true,
+  "dt_url": "https://github.com/boedhack99/device_xiaomi_mojito-TWRP",
+  "dt_branch": "pb",
+  "dt_remote": "github",
+  "dt_path": "device/xiaomi/mojito",
+  "device_code": "mojito",
+  "fix_product": false,
+  "fix_misscom": false,
+  "fix_busybox": true,
+  "fix_branch": "android-10.0"
+}

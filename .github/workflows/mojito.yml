@@ -74,6 +74,7 @@ jobs:
         PATH="~/bin:$PATH"
         tree device
         export ALLOW_MISSING_DEPENDENCIES=true
+        export LC_ALL="C"
         export TARGET_DEVICE_ALT="mojito, sunny"
         export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
         export TARGET_ARCH="arm64"

@@ -5,7 +5,7 @@
   "git_email": "boedhack@gmail.com",
   "use_own_dt": true,
   "dt_url": "https://github.com/boedhack99/device_xiaomi_mojito-TWRP",
-  "dt_branch": "pb",
+  "dt_branch": "pbrp",
   "dt_remote": "github",
   "dt_path": "device/xiaomi/mojito",
   "device_code": "mojito",

@@ -39,7 +39,7 @@ jobs:
     - name: Setup Python environment
       uses: actions/setup-python@v2
       with:
-        python-version: '2.x'
+        python-version: '3.x'
         architecture: 'x64'
 
     - name: Set variables for compilation
@@ -79,8 +79,7 @@ jobs:
         export TARGET_ARCH="arm64"
         export TW_DEFAULT_LANGUAGE="en"
         export USE_CCACHE="1"
-        #export LZMA_RAMDISK_TARGETS="recovery"
-        . build/envsetup.sh
+        source build/envsetup.sh
         lunch omni_${{ steps.var.outputs.device_code }}-eng
         mka clean
         mka recoveryimage -j$(nproc --all)

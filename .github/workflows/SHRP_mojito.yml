@@ -20,9 +20,10 @@ env:
   Rec_ver: v3_10.0
   Rec_url: https://github.com/SHRP/platform_manifest_twrp_omni -b v3_10.0
   device: mojito
-  DT_url: https://github.com/boedhack99/recovery -b 11
-  RP_path: .repo/local_manifests
+  DT_url: https://github.com/boedhack99/rec_mojito -b 11
   DT_path: device/xiaomi/mojito
+  KT_url: https://github.com/MumetNgoding/Kernel_Xiaomi_Mojito -b silont
+  KT_path: kernel/xiaomi/mojito
   target: recoveryimage
   WorkSpace: WorkSpace
   TZ: Asia/Jakarta
@@ -32,7 +33,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -68,8 +69,12 @@ jobs:
       - name: Sync device tree
         run: |
           cd ${{env.WorkSpace}}
-          repo init -u ${{ env.DT_url }} --depth=1 ${{ env.RP_path }}
-          repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+          git clone ${{ env.DT_url }} --depth=1 --single-branch ${{ env.DT_path }}
+
+      - name: Sync kernel tree
+        run: |
+          cd ${{env.WorkSpace}}
+          git clone ${{ env.KT_url }} --depth=1 --single-branch ${{ env.KT_path }}
 
       - name: Show tree
         run: tree -C -d -L 6

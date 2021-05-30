@@ -20,7 +20,7 @@ env:
   Rec_ver: v3_10.0
   Rec_url: https://github.com/SHRP/platform_manifest_twrp_omni -b v3_10.0
   device: mojito
-  DT_url: https://github.com/boedhack/device_xiaomi_mojito-TWRP -b pb
+  DT_url: https://github.com/boedhack99/device_xiaomi_mojito-TWRP -b pb
   DT_path: device/xiaomi/mojito
   target: recoveryimage
   WorkSpace: WorkSpace

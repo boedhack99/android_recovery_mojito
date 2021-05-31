@@ -45,20 +45,20 @@ jobs:
     - name: Set variables for compilation
       id: var
       run: |
-        echo "::set-output name=recovery_url::$(jq -r '.recovery_url' shrp.json)"
-        echo "::set-output name=recovery_branch::$(jq -r '.recovery_branch' shrp.json)"
-        echo "::set-output name=git_username::$(jq -r '.git_username' shrp.json)"
-        echo "::set-output name=git_email::$(jq -r '.git_email' shrp.json)"
-        echo "::set-output name=use_own_dt::$(jq -r '.use_own_dt' shrp.json)"
-        echo "::set-output name=dt_url::$(jq -r '.dt_url' shrp.json)"
-        echo "::set-output name=dt_remote::$(jq -r '.dt_remote' shrp.json)"
-        echo "::set-output name=dt_branch::$(jq -r '.dt_branch' shrp.json)"
-        echo "::set-output name=dt_path::$(jq -r '.dt_path' shrp.json)"
-        echo "::set-output name=device_code::$(jq -r '.device_code' shrp.json)"
-        echo "::set-output name=fix_product::$(jq -r '.fix_product' shrp.json)"
-        echo "::set-output name=fix_misscom::$(jq -r '.fix_misscom' shrp.json)"
-        echo "::set-output name=fix_busybox::$(jq -r '.fix_busybox' shrp.json)"
-        echo "::set-output name=fix_branch::$(jq -r '.fix_branch' shrp.json)"
+        echo "::set-output name=recovery_url::$(jq -r '.recovery_url' pb.json)"
+        echo "::set-output name=recovery_branch::$(jq -r '.recovery_branch' pb.json)"
+        echo "::set-output name=git_username::$(jq -r '.git_username' pb.json)"
+        echo "::set-output name=git_email::$(jq -r '.git_email' pb.json)"
+        echo "::set-output name=use_own_dt::$(jq -r '.use_own_dt' pb.json)"
+        echo "::set-output name=dt_url::$(jq -r '.dt_url' pb.json)"
+        echo "::set-output name=dt_remote::$(jq -r '.dt_remote' pb.json)"
+        echo "::set-output name=dt_branch::$(jq -r '.dt_branch' pb.json)"
+        echo "::set-output name=dt_path::$(jq -r '.dt_path' pb.json)"
+        echo "::set-output name=device_code::$(jq -r '.device_code' pb.json)"
+        echo "::set-output name=fix_product::$(jq -r '.fix_product' pb.json)"
+        echo "::set-output name=fix_misscom::$(jq -r '.fix_misscom' pb.json)"
+        echo "::set-output name=fix_busybox::$(jq -r '.fix_busybox' pb.json)"
+        echo "::set-output name=fix_branch::$(jq -r '.fix_branch' pb.json)"
         echo "::set-output name=date::$(date +%F)"
 
     - name: Sync sources with source
@@ -80,7 +80,7 @@ jobs:
         export TARGET_ARCH="arm64"
         export TW_DEFAULT_LANGUAGE="en"
         export USE_CCACHE="1"
-        source build/envsetup.sh
+        . build/envsetup.sh
         lunch omni_${{ steps.var.outputs.device_code }}-eng
         mka clean
         mka recoveryimage -j$(nproc --all)
@@ -89,7 +89,7 @@ jobs:
       run: |
         mv ./out/target/product/mojito/recovery.img ./package/recovery.img -f
         cd ./package
-        zip -9 -r ./SHRP_v3.1_mojito-$(date +%s).zip ./*
+        zip -9 -r ./PBRP-mojito-3.1.0-$(date +%s)-UNOFFICIAL.zip ./*
         cd ..
         mkdir release
         mv ./package/*.zip ./release/ -f

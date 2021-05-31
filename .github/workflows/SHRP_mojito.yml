@@ -71,11 +71,6 @@ jobs:
           cd ${{env.WorkSpace}}
           git clone ${{ env.DT_url }} --depth=1 --single-branch ${{ env.DT_path }}
 
-      - name: Sync kernel tree
-        run: |
-          cd ${{env.WorkSpace}}
-          git clone ${{ env.KT_url }} --depth=1 --single-branch ${{ env.KT_path }}
-
       - name: Show tree
         run: tree -C -d -L 6
 
@@ -101,7 +96,8 @@ jobs:
       - name: Building ${{env.Rec_name}}
         run: |
           cd ${{env.WorkSpace}}
-          source build/envsetup.sh
+          . build/envsetup.sh
+          export LC_ALL="C"
           export ALLOW_MISSING_DEPENDENCIES=true
           lunch omni_${{ env.device }}-eng
           mka ${{env.target}}

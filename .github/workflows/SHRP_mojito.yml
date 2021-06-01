@@ -16,14 +16,16 @@ on:
   #   types: [started]
 
 env:
-  Rec_name: PBRP
+  Rec_name: SHRP
   Rec_ver: v3_10.0
-  Rec_url: https://github.com/PitchBlackRecoveryProject/manifest_pb -b android-10.0
+  Rec_url: https://github.com/SHRP/platform_manifest_twrp_omni -b v3_10.0
   device: mojito
   DT_url: https://github.com/boedhack99/rec_mojito -b 11
   DT_path: device/xiaomi/mojito
   KT_url: https://github.com/MumetNgoding/Kernel_Xiaomi_Mojito -b silont
   KT_path: kernel/xiaomi/mojito
+  PT_url: https://github.com/jbeich/platform_system_tools_mkbootimg -b master
+  PT_path: system/core/mkbootimg
   target: recoveryimage
   WorkSpace: WorkSpace
   TZ: Asia/Jakarta
@@ -70,6 +72,11 @@ jobs:
         run: |
           cd ${{env.WorkSpace}}
           git clone ${{ env.DT_url }} --depth=1 --single-branch ${{ env.DT_path }}
+
+      - name: Path mkbootimg
+        run: |
+          cd ${{env.WorkSpace}}
+          git clone ${{ env.PT_url }} --depth=1 --single-branch ${{ env.PT_path }}
 
       - name: Show tree
         run: tree -C -d -L 6

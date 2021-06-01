@@ -76,6 +76,7 @@ jobs:
       - name: Path mkbootimg
         run: |
           cd ${{env.WorkSpace}}
+          rm -rf ${{ env.PT_path }}
           git clone ${{ env.PT_url }} --depth=1 --single-branch ${{ env.PT_path }}
 
       - name: Show tree

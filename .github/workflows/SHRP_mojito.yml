@@ -24,7 +24,7 @@ env:
   DT_path: device/xiaomi/mojito
   KT_url: https://github.com/MumetNgoding/Kernel_Xiaomi_Mojito -b silont
   KT_path: kernel/xiaomi/mojito
-  PT_url: https://github.com/jbeich/platform_system_tools_mkbootimg -b master
+  PT_url: https://github.com/boedhack99/platform_system_tools_mkbootimg -b master
   PT_path: system/core/mkbootimg
   target: recoveryimage
   WorkSpace: WorkSpace

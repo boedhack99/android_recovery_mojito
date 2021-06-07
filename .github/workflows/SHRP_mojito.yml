@@ -28,6 +28,8 @@ env:
   PT_path: system/core/mkbootimg
   BT_url: https://github.com/LineageOS/android_hardware_qcom_bootctrl -b lineage-18.1-caf
   BT_path: hardware/qcom-caf/bootctrl
+  CT_url: https://github.com/LineageOS/android_build -b lineage-18.1
+  CT_path: build/make
   target: recoveryimage
   WorkSpace: WorkSpace
   TZ: Asia/Jakarta
@@ -79,6 +81,11 @@ jobs:
         run: |
           cd ${{env.WorkSpace}}
           git clone ${{ env.BT_url }} --depth=1 --single-branch ${{ env.BT_path }}
+
+      - name: Patch build
+        run: |
+          cd ${{env.WorkSpace}}
+          git clone ${{ env.CT_url }} --depth=1 --single-branch ${{ env.CT_path }}
 
       - name: Patch mkbootimg
         run: |

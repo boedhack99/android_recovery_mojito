@@ -26,6 +26,8 @@ env:
   KT_path: kernel/xiaomi/mojito
   PT_url: https://github.com/Octavi-OS/platform_system_tools_mkbootimg -b 11
   PT_path: system/core/mkbootimg
+  BT_url: https://github.com/LineageOS/android_hardware_qcom_bootctrl -b lineage-18.1-caf
+  BT_path: hardware/qcom-caf/bootctrl
   target: recoveryimage
   WorkSpace: WorkSpace
   TZ: Asia/Jakarta
@@ -73,7 +75,12 @@ jobs:
           cd ${{env.WorkSpace}}
           git clone ${{ env.DT_url }} --depth=1 --single-branch ${{ env.DT_path }}
 
-      - name: Path mkbootimg
+      - name: Patch bootctrl
+        run: |
+          cd ${{env.WorkSpace}}
+          git clone ${{ env.BT_url }} --depth=1 --single-branch ${{ env.BT_path }}
+
+      - name: Patch mkbootimg
         run: |
           cd ${{env.WorkSpace}}
           rm -rf ${{ env.PT_path }}

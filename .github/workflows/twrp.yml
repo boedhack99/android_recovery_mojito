@@ -49,20 +49,20 @@ jobs:
         run: |
           docker rmi `docker images -q`
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/sudo apt/sources.list.d
-          sudo apt -y purge azure-cli firefox powershell
+          sudo apt -y purge
           sudo apt update
           sudo apt -y autoremove --purge
           sudo apt clean
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          sudo -E apt-get -y purge azure-cli firefox powershell
+          sudo -E apt-get -y purge
 
       - name: Initializing environment
         run: |
           git config --global user.name "boedhack99"
           git config --global user.email "boedhack@gmail.com"
-          git clone https://gitlab.com/OrangeFox/misc/scripts --depth=1 --single-branch
+          git clone https://github.com/boedhack99/scripts --depth=1 --single-branch
           cd scripts
           sudo -E bash setup/android_build_env.sh
           sudo -E bash setup/install_android_sdk.sh

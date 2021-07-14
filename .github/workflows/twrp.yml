@@ -17,7 +17,7 @@ on:
 
 env:
   Rec_name: twrp
-  Rec_ver: 3.5.2-0
+  Rec_ver: 3.5.2
   Rec_url: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
   device: mojito
   DT_url: https://github.com/boedhack99/rec_mojito -b 11
@@ -121,8 +121,9 @@ jobs:
           . build/envsetup.sh
           export LC_ALL="C"
           export ALLOW_MISSING_DEPENDENCIES=true
-          lunch aosp_${{ env.device }}-eng
-          make ${{env.target}}
+          lunch twrp_${{ env.device }}-eng
+          repo sync -j4
+          mka ${{env.target}}
         shell: bash
 
       - name: Get info

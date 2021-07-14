@@ -54,7 +54,6 @@ jobs:
           sudo apt -y autoremove --purge
           sudo apt clean
           sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
           sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*

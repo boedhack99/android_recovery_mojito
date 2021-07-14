@@ -49,14 +49,14 @@ jobs:
         run: |
           docker rmi `docker images -q`
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/sudo apt/sources.list.d
-          sudo apt -y purge azure-cli hhvm firefox powershell
+          sudo apt -y purge azure-cli firefox powershell
           sudo apt update
           sudo apt -y autoremove --purge
           sudo apt clean
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-          sudo -E apt-get -y purge azure-cli hhvm firefox powershell
+          sudo -E apt-get -y purge azure-cli firefox powershell
 
       - name: Initializing environment
         run: |

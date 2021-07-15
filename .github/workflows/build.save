@@ -1,4 +1,4 @@
-name: TWRP Build
+name: Build TWRP
 
 on:
   #  release:
@@ -16,16 +16,23 @@ on:
   #   types: [started]
 
 env:
-  Rec_name: TeamWin Recovery
+  Rec_name: twrp
   Rec_ver: 3.5.2
-  Rec_url: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-11
-  device: begonia
+  Rec_url: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
+  device: mojito
   DT_url: https://github.com/boedhack99/rec_mojito -b 11
   DT_path: device/xiaomi/mojito
+#  KT_url: https://github.com/PixelExperience-Devices/kernel_xiaomi_mojito -b eleven
+#  KT_path: kernel/xiaomi/mojito
+ # PT_url: https://github.com/Octavi-OS/platform_system_tools_mkbootimg -b 11
+ # PT_path: system/core/mkbootimg
+  BT_url: https://github.com/LineageOS/android_hardware_qcom_bootctrl -b lineage-18.1-caf
+  BT_path: hardware/qcom-caf/bootctrl
+ # CT_url: https://github.com/LineageOS/android_build -b lineage-18.1
+ # CT_path: build/make
   target: bootimage
   WorkSpace: WorkSpace
-  TZ: Asia/Shanghai
-  Author: boedhack99
+  TZ: Asia/Jakarta
   Enable_cache: false
   Enable_ccache: true
   Delete_old: false
@@ -53,7 +60,7 @@ jobs:
           sudo -E apt-get -qq install curl libstdc++6 git wget repo rsync aria2
           git config --global user.name "boedhack99"
           git config --global user.email "boedhack@gmail.com"
-          git clone https://gitlab.com/OrangeFox/misc/scripts --depth=1 --single-branch
+          git clone https://github.com/boedhack99/scripts --depth=1 --single-branch
           cd scripts
           sudo -E bash setup/android_build_env.sh
           sudo -E bash setup/install_android_sdk.sh
@@ -69,8 +76,22 @@ jobs:
         run: |
           cd ${{env.WorkSpace}}
           git clone ${{ env.DT_url }} --depth=1 --single-branch ${{ env.DT_path }}
-          cd ${{ env.DT_path }}
-          # rm -rf recovery/root/*
+
+      - name: Patch bootctrl
+        run: |
+          cd ${{env.WorkSpace}}
+          git clone ${{ env.BT_url }} --depth=1 --single-branch ${{ env.BT_path }}
+
+#      - name: Sync kernel
+#        run: |
+#          cd ${{env.WorkSpace}}
+#          git clone ${{ env.KT_url }} --depth=1 --single-branch ${{ env.KT_path }}
+
+#      - name: Patch mkbootimg
+#        run: |
+#          cd ${{env.WorkSpace}}
+#          rm -rf ${{ env.PT_path }}
+#          git clone ${{ env.PT_url }} --depth=1 --single-branch ${{ env.PT_path }}
 
       - name: Show tree
         run: tree -C -d -L 6
@@ -97,9 +118,10 @@ jobs:
       - name: Building ${{env.Rec_name}}
         run: |
           cd ${{env.WorkSpace}}
-          source build/envsetup.sh
+          . build/envsetup.sh
+          export LC_ALL="C"
           export ALLOW_MISSING_DEPENDENCIES=true
-          lunch omni_${{ env.device }}-eng
+          lunch twrp_${{ env.device }}-eng
           repo sync -j4
           mka ${{env.target}}
         shell: bash
@@ -114,7 +136,7 @@ jobs:
       - name: Show out tree
         run: |
           cd ${{steps.info.outputs.OutFolder}}
-          sudo zip -r9 ${{env.Rec_name}}_for_${{ env.device }}.zip recovery.img
+          sudo zip -r9 recovery.zip recovery.img
           tree -C -L 5
 
       - name: Upload firmware directory
@@ -128,12 +150,11 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ${{steps.info.outputs.OutFolder}}/${{env.Rec_name}}_for_${{ env.device }}.zip
-            ${{steps.info.outputs.OutFolder}}/recovery.img
+            ${{steps.info.outputs.OutFolder}}/*.zip
+            ${{steps.info.outputs.OutFolder}}/*.img
           name: ${{env.Rec_name}}-${{ env.device }}-${{ github.run_id }}
           tag_name: ${{ env.device }}-${{env.Rec_name}}-${{ steps.info.outputs.date }}
-          body: |
-            ${{env.Rec_name}}-${{env.Rec_ver}} for ${{ env.device }} build at ${{ steps.info.outputs.date }}
+          body: ${{env.Rec_name}}-${{env.Rec_ver}} for ${{ env.device }} build at ${{ steps.info.outputs.date }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

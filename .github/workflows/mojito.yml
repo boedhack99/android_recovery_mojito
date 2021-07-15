@@ -19,12 +19,12 @@ env:
   Rec_name: TeamWin Recovery
   Rec_ver: 3.5.2
   Rec_url: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-11
-  device: begonia
+  device: mojito
   DT_url: https://github.com/boedhack99/rec_mojito -b 11
   DT_path: device/xiaomi/mojito
   target: bootimage
   WorkSpace: WorkSpace
-  TZ: Asia/Shanghai
+  TZ: Asia/Jakarta
   Author: boedhack99
   Enable_cache: false
   Enable_ccache: true
@@ -99,7 +99,7 @@ jobs:
           cd ${{env.WorkSpace}}
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
-          lunch omni_${{ env.device }}-eng
+          lunch twrp_${{ env.device }}-eng
           repo sync -j4
           mka ${{env.target}}
         shell: bash

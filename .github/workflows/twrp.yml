@@ -22,8 +22,8 @@ env:
   device: mojito
   DT_url: https://github.com/boedhack99/rec_mojito -b 11
   DT_path: device/xiaomi/mojito
- # KT_url: https://github.com/MumetNgoding/Kernel_Xiaomi_Mojito -b silont
- # KT_path: kernel/xiaomi/mojito
+  KT_url: https://github.com/PixelExperience-Devices/kernel_xiaomi_mojito -b eleven
+  KT_path: kernel/xiaomi/mojito
  # PT_url: https://github.com/Octavi-OS/platform_system_tools_mkbootimg -b 11
  # PT_path: system/core/mkbootimg
   BT_url: https://github.com/LineageOS/android_hardware_qcom_bootctrl -b lineage-18.1-caf
@@ -82,10 +82,10 @@ jobs:
           cd ${{env.WorkSpace}}
           git clone ${{ env.BT_url }} --depth=1 --single-branch ${{ env.BT_path }}
 
-#      - name: Patch build
-#        run: |
-#          cd ${{env.WorkSpace}}
-#          git clone ${{ env.CT_url }} --depth=1 --single-branch ${{ env.CT_path }}
+      - name: Sync kernel
+        run: |
+          cd ${{env.WorkSpace}}
+          git clone ${{ env.KT_url }} --depth=1 --single-branch ${{ env.KT_path }}
 
 #      - name: Patch mkbootimg
 #        run: |

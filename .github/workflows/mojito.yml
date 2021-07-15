@@ -37,10 +37,10 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-      - name: Checkout
+      - name: CHECKOUT
         uses: actions/checkout@master
 
-      - name: Delete old environment
+      - name: CLEANUP OLD ENVIRONMENT
         # if: env.Enable_cache == 'true' && !cancelled()
         run: |
           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d

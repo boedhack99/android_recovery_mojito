@@ -17,13 +17,13 @@ on:
 
 env:
   Rec_name: TWRP
-  Rec_ver: 3.5.2
+  Rec_ver: 3.6.0
   Rec_url: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-11
-  device: mojito
-  DT_url: https://github.com/boedhack99/rec_mojito -b 11
-  DT_path: device/xiaomi/mojito
-  BT_url: https://github.com/LineageOS/android_hardware_qcom_bootctrl -b lineage-18.1-caf
-  BT_path: hardware/qcom-caf/bootctrl
+  device: spes
+  DT_url: https://github.com/boedhack99/device_xiaomi_spes -b twrp-11
+  DT_path: device/xiaomi/spes
+#  BT_url: https://github.com/LineageOS/android_hardware_qcom_bootctrl -b lineage-18.1-caf
+#  BT_path: hardware/qcom-caf/bootctrl
   target: bootimage
   WorkSpace: WorkSpace
   TZ: Asia/Jakarta
@@ -74,10 +74,10 @@ jobs:
           cd ${{ env.DT_path }}
           # rm -rf recovery/root/*
 
-      - name: PATCH BOOTCTRL
-        run: |
-          cd ${{env.WorkSpace}}
-          git clone ${{ env.BT_url }} --depth=1 --single-branch ${{ env.BT_path }}
+#      - name: PATCH BOOTCTRL
+#        run: |
+#          cd ${{env.WorkSpace}}
+#          git clone ${{ env.BT_url }} --depth=1 --single-branch ${{ env.BT_path }}
 
       - name: SHOW TREES
         run: tree -C -d -L 6
